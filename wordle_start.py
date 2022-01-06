@@ -4,6 +4,10 @@
 from os.path import exists
 import urllib
 
+def all_a2z(word):
+    a2z = ['a' <= c <= 'z' for c in word]
+    return all(a2z)
+
 # taken from http://corpus.leeds.ac.uk/frqc/internet-en.num
 if not exists("internet-en.num.txt"):
     print ("Input file not found...downloading")
@@ -24,7 +28,9 @@ while (len(words) < 2500) and not eof:
     if len(wordline) > 0:
         temp = wordline.rstrip().split(" ")
         if len(temp) == 3:
-            word = temp[2]
+            word = temp[2].lower()
+            if not all_a2z(word):
+                continue
             if len(word) == 5:
                 words.append(word)
     else:
